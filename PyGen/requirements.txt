@@ -1,0 +1,4 @@
+pygccxml
+imgui
+pyopengl
+glfw

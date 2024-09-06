@@ -1,3 +1,5 @@
 build*/
 cmake-build*/
 external/
+/.vs/*
+/PyGen/Classes/__pycache__/*

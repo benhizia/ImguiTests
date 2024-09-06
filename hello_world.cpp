@@ -4,9 +4,18 @@
 #include "implot/implot.h"
 #endif
 #include "imgui_md_wrapper.h"
-
+#include "node.h"
 #include <cmath>
 
+// Function to render the tree view
+void RenderTreeView(std::shared_ptr<Node> node) {
+    if (ImGui::TreeNode(node->name.c_str())) {
+        for (auto& child : node->children) {
+            RenderTreeView(child);
+        }
+        ImGui::TreePop();
+    }
+}
 
 void DemoImplot()
 {
@@ -37,23 +46,19 @@ void DemoImplot()
 
 void Gui()
 {
-    ImGuiMd::RenderUnindented(R"(
-            # Dear ImGui Bundle
-            [Dear ImGui Bundle](https://github.com/pthom/imgui_bundle) is a bundle for [Dear ImGui](https://github.com/ocornut/imgui.git), including various useful libraries from its ecosystem.
-            It enables to easily create ImGui applications in C++, as well as in Python.
 
-            This is an example of markdown widget, with an included image:
+    // Create a simple tree structure
+    auto root = std::make_shared<Node>("Root");
+    auto child1 = std::make_shared<Node>("Child 1");
+    auto child2 = std::make_shared<Node>("Child 2");
+    auto grandchild1 = std::make_shared<Node>("Grandchild 1");
 
-            ![world](images/world.png)
+    child1->AddChild(grandchild1);
+    root->AddChild(child1);
+    root->AddChild(child2);
 
-            ---
-            And below is a graph created with ImPlot:
-        )");
-
-    DemoImplot();
-
-    ImGui::Separator();
-    ImGuiMd::RenderUnindented("*Note: the icon of this application is defined by `assets/app_settings/icon.png`*");
+    // Render the tree view (this should be inside your rendering loop)
+    RenderTreeView(root);
 }
 
 
@@ -61,7 +66,7 @@ int main(int , char *[])
 {
     HelloImGui::SimpleRunnerParams runnnerParams;
     runnnerParams.guiFunction = Gui;
-    runnnerParams.windowSize = {600, 800};
+    runnnerParams.windowSize = {600, 1200};
 
     ImmApp::AddOnsParams addOnsParams;
     addOnsParams.withMarkdown = true;
