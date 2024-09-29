@@ -13,6 +13,7 @@ def parse_cpp_file(filename):
     # Configure the parser
     xml_generator_config = parser.xml_generator_configuration_t(
         xml_generator_path=generator_path,
+        include_paths=[r"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include", r"C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt" ],
         xml_generator=generator_name,
         compiler_path=compiler_path,
         cflags="-std=c++17"  # Adjust this to match your C++ standard

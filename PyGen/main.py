@@ -24,20 +24,15 @@ def main():
     cpp_file = r"Data\tst.h"  # Replace with your C++ header file path
     global_ns = parser.parse_cpp_file(cpp_file)
     tree = parser.create_tree_from_cpp(global_ns)
-
+    imgui.set_next_window_size(1180, 780)
+    imgui.set_next_window_position(1000, 10)
     while not glfw.window_should_close(window):
         glfw.poll_events()
         impl.process_inputs()
 
         imgui.new_frame()
-
-        imgui.set_next_window_size(1180, 780)
-        imgui.set_next_window_position(10, 10)
-        imgui.begin("C++ Hierarchy Viewer", flags=imgui.WINDOW_NO_RESIZE | imgui.WINDOW_NO_MOVE)
+        imgui.begin("C++ Hierarchy Viewer")
         renderer.render_tree_and_table(tree)
-        imgui.begin_group()
-        #EasyWidgetExample()
-        imgui.end_group()
         imgui.end()
 
         gl.glClearColor(0.1, 0.1, 0.1, 1)

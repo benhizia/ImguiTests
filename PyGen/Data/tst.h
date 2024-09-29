@@ -1,4 +1,4 @@
-
+#include <iostream>
 struct student
 {/*
     struct Metier{
@@ -20,6 +20,19 @@ struct student
 
 struct EmployeeRecord {
     // Personal Information
+    class personalInfo{
+        personalInfo(){std::cout<<"hello";};
+        ~personalInfo(){std::cout<<"bye";};
+        virtual void print() = 0;
+        virtual void set() = 0;
+    public:
+        char firstName[50];
+        char middleName[50];
+        char lastName[50];
+        char preferredName[50];
+        char gender;
+    };
+    struct student s5[5];
     int employeeId;
     char firstName[50];
     char lastName[50];
