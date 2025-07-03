@@ -7,12 +7,10 @@ def render_tree_and_table(nodes):
 
     def render_node(node, depth=0):
         flags = imgui.TREE_NODE_DEFAULT_OPEN if node.children else imgui.TREE_NODE_LEAF
-        
         imgui.push_id(node.id)
         
         # Start a new group to ensure consistent height
         imgui.begin_group()
-        
         indent = depth * 20  # Adjust indent based on depth
         imgui.dummy(indent, 0)  # Add horizontal spacing
         imgui.same_line()
@@ -25,7 +23,6 @@ def render_tree_and_table(nodes):
         is_expanded = imgui.selectable(node.name, is_selected, flags)[1]
         imgui.set_item_default_focus()
         node.expanded = is_expanded
-        
         imgui.end_group()
         
         if is_expanded:
@@ -50,6 +47,8 @@ def render_tree_and_table(nodes):
 def render_table_view(visible_nodes, row_height):
     imgui.begin_child("table_view")
     if imgui.begin_table("details_table", 4, imgui.TABLE_BORDERS | imgui.TABLE_ROW_BACKGROUND):
+        imgui.set_cursor_pos_x(imgui.get_cursor_pos_x() + 50)  # Décalage de 10 pixels
+
         imgui.table_setup_column("Name")
         imgui.table_setup_column("Type")
         imgui.table_setup_column("Offset")
@@ -57,8 +56,10 @@ def render_table_view(visible_nodes, row_height):
         imgui.table_headers_row()
 
         for node, depth in visible_nodes:
+            if not node.is_printable_in_table_view:
+                continue
+            imgui.set_cursor_pos_y(imgui.get_cursor_pos_y() + 2)  # Décalage de 10 pixels
             imgui.table_next_row(row_flags=imgui.TABLE_ROW_NONE, min_row_height=row_height)
-            
             imgui.table_next_column()
             imgui.dummy(depth * 20, 0)  # Add indent to align with tree view
             imgui.same_line()

@@ -24,7 +24,7 @@ endif()
 
 # Build your app
 # ==============
-imgui_bundle_add_app(imgui_bundle_example_integration hello_world.cpp)
+imgui_bundle_add_app(imgui_bundle_example_integration main.cpp demo.h demo.cpp aris.cpp aris.h TreeNode.h)
 
 # imgui_bundle_add_app is a helper function, similar to cmake's "add_executable"
 # Usage:

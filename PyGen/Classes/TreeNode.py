@@ -7,6 +7,7 @@ class TreeNode:
         self.parent = parent
         self.id = self.generate_id()
         self.expanded = False
+        self.is_printable_in_table_view = True
 
         for child in self.children:
             child.parent = self
