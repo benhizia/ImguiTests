@@ -3,3 +3,9 @@ cmake-build*/
 external/
 /.vs/*
 /PyGen/Classes/__pycache__/*
+*.whl
+*.gz
+/PyGen/.vs/PyGen/v17/Browse.VC.db
+/PyGen/.vs/PyGen/v17/.wsuo
+*.vsidx
+/PyGen/.vs
